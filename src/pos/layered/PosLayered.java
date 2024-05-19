@@ -4,6 +4,8 @@
  */
 package pos.layered;
 
+import pos.layered.view.LayoutView;
+
 /**
  *
  * @author sujah
@@ -16,6 +18,8 @@ public class PosLayered {
     public static void main(String[] args) {
         // TODO code application logic here
         System.out.println("Hello Layered Architecture");
+        System.out.println("Changed branch");
+        new LayoutView().setVisible(true);
     }
     
 }
