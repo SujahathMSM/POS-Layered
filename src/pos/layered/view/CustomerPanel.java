@@ -4,16 +4,22 @@
  */
 package pos.layered.view;
 
+import javax.swing.JOptionPane;
+import pos.layered.controller.CustomerController;
+import pos.layered.dto.CustomerDTO;
+
 /**
  *
  * @author sujah
  */
 public class CustomerPanel extends javax.swing.JPanel {
+    private CustomerController customerController;
 
     /**
      * Creates new form CustomerPanel
      */
     public CustomerPanel() {
+        customerController = new CustomerController();
         initComponents();
     }
 
@@ -304,6 +310,7 @@ public class CustomerPanel extends javax.swing.JPanel {
 
     private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
         // TODO add your handling code here:
+        saveCustomer();
         
     }//GEN-LAST:event_btnSaveActionPerformed
 
@@ -356,4 +363,35 @@ public class CustomerPanel extends javax.swing.JPanel {
     private javax.swing.JTextField txtTitle;
     private javax.swing.JTextField txtZip;
     // End of variables declaration//GEN-END:variables
+
+    private void saveCustomer() {
+        CustomerDTO customerDTO = new CustomerDTO(
+                txtID.getText(),
+                txtTitle.getText(),
+                txtName.getText(),
+                txtDOB.getText(),
+                Double.parseDouble(txtSalary.getText()),
+                txtAddress.getText(),
+                txtCity.getText(),
+                txtProvince.getText(),
+                txtZip.getText()
+        );
+        
+        String resp = customerController.saveCustomer(customerDTO);
+        JOptionPane.showMessageDialog(this, resp);
+        clear();
+        
+    }
+    
+    private void clear() {
+        txtID.setText("");
+        txtTitle.setText("");
+        txtName.setText("");
+        txtDOB.setText("");
+        txtSalary.setText("");
+        txtAddress.setText("");
+        txtCity.setText("");
+        txtProvince.setText("");
+        txtZip.setText("");
+    }
 }

@@ -11,9 +11,10 @@ import pos.layered.dto.CustomerDTO;
  * @author sujah
  */
 public class CustomerController {
+    CustomerService customerService;
 
     public String saveCustomer(CustomerDTO customerDTO) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        return customerService.addCustomer(customerDTO);
     }
     
 }
