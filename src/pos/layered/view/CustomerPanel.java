@@ -364,7 +364,7 @@ public class CustomerPanel extends javax.swing.JPanel {
     private javax.swing.JTextField txtZip;
     // End of variables declaration//GEN-END:variables
 
-    private void saveCustomer() {
+    private void saveCustomer() throws Exception {
         CustomerDTO customerDTO = new CustomerDTO(
                 txtID.getText(),
                 txtTitle.getText(),

@@ -5,6 +5,7 @@
         <group>
             <file>file:/C:/Users/sujah/Documents/NetBeansProjects/pos-layered/src/pos/layered/PosLayered.java</file>
             <file>file:/C:/Users/sujah/Documents/NetBeansProjects/pos-layered/src/pos/layered/view/LayoutView.java</file>
+            <file>file:/C:/Users/sujah/Documents/NetBeansProjects/pos-layered/src/pos/layered/service/custom/impl/CustomerServiceImpl.java</file>
             <file>file:/C:/Users/sujah/Documents/NetBeansProjects/pos-layered/src/pos/layered/service/SuperService.java</file>
             <file>file:/C:/Users/sujah/Documents/NetBeansProjects/pos-layered/src/pos/layered/service/custom/CustomerService.java</file>
             <file>file:/C:/Users/sujah/Documents/NetBeansProjects/pos-layered/src/pos/layered/dto/CustomerDTO.java</file>

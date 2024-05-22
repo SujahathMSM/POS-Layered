@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package pos.layered.controller;
+package pos.layered.service.custom.impl;
 
 import pos.layered.dto.CustomerDTO;
 import pos.layered.service.custom.CustomerService;
@@ -11,11 +11,11 @@ import pos.layered.service.custom.CustomerService;
  *
  * @author sujah
  */
-public class CustomerController {
-    CustomerService customerService = ServiceFactory;
+public class CustomerServiceImpl implements CustomerService{
 
-    public String saveCustomer(CustomerDTO customerDTO)throws Exception{
-        return customerService.addCustomer(customerDTO);
+    @Override
+    public String addCustomer(CustomerDTO customerDTO) throws Exception {
+        return null;
     }
     
 }
