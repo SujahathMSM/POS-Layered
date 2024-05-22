@@ -6,13 +6,13 @@ package pos.layered.controller;
 
 import pos.layered.dto.CustomerDTO;
 import pos.layered.service.custom.CustomerService;
-
+import pos.layered.service.ServiceFactory;
 /**
  *
  * @author sujah
  */
 public class CustomerController {
-    CustomerService customerService = ServiceFactory;
+    CustomerService customerService = (CustomerService) ServiceFactory.getInstance().getService(ServiceFactory.ServiceType.CUSTOMER);
 
     public String saveCustomer(CustomerDTO customerDTO)throws Exception{
         return customerService.addCustomer(customerDTO);
