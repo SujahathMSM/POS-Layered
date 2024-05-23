@@ -4,7 +4,11 @@
  */
 package pos.layered.view;
 
+import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 import pos.layered.controller.CustomerController;
 import pos.layered.dto.CustomerDTO;
 
@@ -13,6 +17,7 @@ import pos.layered.dto.CustomerDTO;
  * @author sujah
  */
 public class CustomerPanel extends javax.swing.JPanel {
+
     private CustomerController customerController;
 
     /**
@@ -21,6 +26,7 @@ public class CustomerPanel extends javax.swing.JPanel {
     public CustomerPanel() {
         customerController = new CustomerController();
         initComponents();
+        loadCustomers();
     }
 
     /**
@@ -309,23 +315,29 @@ public class CustomerPanel extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
-        // TODO add your handling code here:
-        saveCustomer();
-        
+        try {
+            // TODO add your handling code here:
+            saveCustomer();
+        } catch (Exception ex) {
+            Logger.getLogger(CustomerPanel.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
     }//GEN-LAST:event_btnSaveActionPerformed
 
     private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
         // TODO add your handling code here:
-        
+        updateCustomer();
+
     }//GEN-LAST:event_btnUpdateActionPerformed
 
     private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
         // TODO add your handling code here:
-        
+        deleteCustomer();
+
     }//GEN-LAST:event_btnDeleteActionPerformed
 
     private void customerTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_customerTableMouseClicked
-        
+        searchCustomer();
     }//GEN-LAST:event_customerTableMouseClicked
 
     private void customerTableMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_customerTableMouseExited
@@ -376,13 +388,14 @@ public class CustomerPanel extends javax.swing.JPanel {
                 txtProvince.getText(),
                 txtZip.getText()
         );
-        
+
         String resp = customerController.saveCustomer(customerDTO);
         JOptionPane.showMessageDialog(this, resp);
         clear();
-        
+        loadCustomers();
+
     }
-    
+
     private void clear() {
         txtID.setText("");
         txtTitle.setText("");
@@ -393,5 +406,87 @@ public class CustomerPanel extends javax.swing.JPanel {
         txtCity.setText("");
         txtProvince.setText("");
         txtZip.setText("");
+    }
+
+    private void loadCustomers() {
+        try {
+            String[] columns = {"Id", "Name", "Address", "Salary", "Postal Code"};
+            DefaultTableModel dtm = new DefaultTableModel(columns, 0) {
+                @Override
+                public boolean isCellEditable(int row, int column) {
+                    return false; // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/OverriddenMethodBody
+                }
+
+            };
+
+            ArrayList<CustomerDTO> allCustomers = customerController.getAllCustomer();
+
+            for (CustomerDTO allCustomer : allCustomers) {
+                Object[] rowObj = {allCustomer.getId(), allCustomer.getName(), allCustomer.getAddress(), allCustomer.getSalary(), allCustomer.getZip()};
+                dtm.addRow(rowObj);
+            }
+
+            customerTable.setModel(dtm);
+        } catch (Exception ex) {
+            Logger.getLogger(CustomerPanel.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(this, ex.getMessage());
+        }
+    }
+
+    private void deleteCustomer() {
+        try {
+            String custID = txtID.getText();
+            String resp = customerController.deleteCustomer(custID);
+        } catch (Exception ex) {
+            Logger.getLogger(CustomerPanel.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(this, ex.getMessage());
+        }
+    }
+
+    private void searchCustomer() {
+        try {
+            String custID = customerTable.getValueAt(customerTable.getSelectedRow(), 0).toString();
+            CustomerDTO customerr = customerController.SearchCustomer(custID);
+
+            if (customerr != null) {
+                txtID.setText(customerr.getId());
+                txtTitle.setText(customerr.getTitle());
+                txtName.setText(customerr.getName());
+                txtDOB.setText(customerr.getDob());
+                txtSalary.setText(Double.toString(customerr.getSalary()));
+                txtAddress.setText(customerr.getAddress());
+                txtCity.setText(customerr.getCity());
+                txtProvince.setText(customerr.getProvince());
+                txtZip.setText(customerr.getZip());
+            } else {
+                JOptionPane.showMessageDialog(this, "Customer Doesn't Exists");
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(CustomerPanel.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(this, ex.getMessage());
+        }
+    }
+
+    private void updateCustomer() {
+        try {
+            CustomerDTO customerDTO = new CustomerDTO(
+                    txtID.getText(),
+                    txtTitle.getText(),
+                    txtName.getText(),
+                    txtDOB.getText(),
+                    Double.valueOf(txtSalary.getText()),
+                    txtAddress.getText(),
+                    txtCity.getText(),
+                    txtProvince.getText(),
+                    txtZip.getText()
+            );
+
+            String resp = customerController.updateCustomer(customerDTO);
+            JOptionPane.showMessageDialog(this, resp);
+            loadCustomers();
+        } catch (Exception ex) {
+            Logger.getLogger(CustomerPanel.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(this, ex.getMessage());
+        }
     }
 }
