@@ -437,6 +437,9 @@ public class CustomerPanel extends javax.swing.JPanel {
         try {
             String custID = txtID.getText();
             String resp = customerController.deleteCustomer(custID);
+            JOptionPane.showMessageDialog(this, resp);
+            clear();
+            loadCustomers();
         } catch (Exception ex) {
             Logger.getLogger(CustomerPanel.class.getName()).log(Level.SEVERE, null, ex);
             JOptionPane.showMessageDialog(this, ex.getMessage());
