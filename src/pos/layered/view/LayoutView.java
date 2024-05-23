@@ -30,6 +30,7 @@ public class LayoutView extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         NavPanel = new javax.swing.JPanel();
         btnManageCustomer = new javax.swing.JButton();
+        btnManageItem = new javax.swing.JButton();
         BodyPanel = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -70,20 +71,35 @@ public class LayoutView extends javax.swing.JFrame {
             }
         });
 
+        btnManageItem.setBackground(new java.awt.Color(0, 255, 204));
+        btnManageItem.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        btnManageItem.setText("Manage Item");
+        btnManageItem.setBorderPainted(false);
+        btnManageItem.setFocusPainted(false);
+        btnManageItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnManageItemActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout NavPanelLayout = new javax.swing.GroupLayout(NavPanel);
         NavPanel.setLayout(NavPanelLayout);
         NavPanelLayout.setHorizontalGroup(
             NavPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(NavPanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(btnManageCustomer, javax.swing.GroupLayout.DEFAULT_SIZE, 162, Short.MAX_VALUE)
+                .addGroup(NavPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnManageCustomer, javax.swing.GroupLayout.DEFAULT_SIZE, 162, Short.MAX_VALUE)
+                    .addComponent(btnManageItem, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 162, Short.MAX_VALUE))
                 .addContainerGap())
         );
         NavPanelLayout.setVerticalGroup(
             NavPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(NavPanelLayout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(14, 14, 14)
                 .addComponent(btnManageCustomer, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btnManageItem, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -136,6 +152,11 @@ public class LayoutView extends javax.swing.JFrame {
         loadCustomerPanel();
     }//GEN-LAST:event_btnManageCustomerActionPerformed
 
+    private void btnManageItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnManageItemActionPerformed
+        // TODO add your handling code here:
+        loadItemPanel();
+    }//GEN-LAST:event_btnManageItemActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -176,6 +197,7 @@ public class LayoutView extends javax.swing.JFrame {
     private javax.swing.JPanel HeaderPanel;
     private javax.swing.JPanel NavPanel;
     private javax.swing.JButton btnManageCustomer;
+    private javax.swing.JButton btnManageItem;
     private javax.swing.JLabel jLabel1;
     // End of variables declaration//GEN-END:variables
 
@@ -186,5 +208,15 @@ public class LayoutView extends javax.swing.JFrame {
         BodyPanel.add(customerPanel);
         BodyPanel.repaint();
         BodyPanel.revalidate();
+    }
+    
+    private void loadItemPanel(){
+        BodyPanel.removeAll();
+        Itempanel itempanel = new Itempanel();
+        itempanel.setSize(BodyPanel.getWidth(), BodyPanel.getHeight());
+        BodyPanel.add(itempanel);
+        BodyPanel.repaint();
+        BodyPanel.revalidate();
+        
     }
 }
