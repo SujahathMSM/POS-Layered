@@ -12,8 +12,10 @@ import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import pos.layered.controller.CustomerController;
 import pos.layered.controller.ItemController;
+import pos.layered.controller.OrderController;
 import pos.layered.dto.CustomerDTO;
 import pos.layered.dto.ItemDTO;
+import pos.layered.dto.OrderDTO;
 import pos.layered.dto.OrderDetailDTO;
 
 /**
@@ -24,6 +26,7 @@ public class OrderPanel extends javax.swing.JPanel {
     private List<OrderDetailDTO> orderDetails = new ArrayList<>();
     private CustomerController customerController;
     private ItemController itemController;
+    private OrderController orderController;
     /**
      * Creates new form OrderPanel
      */
@@ -31,6 +34,7 @@ public class OrderPanel extends javax.swing.JPanel {
         initComponents();
         customerController = new CustomerController();
         itemController = new ItemController();
+        orderController = new OrderController();
         loadTable();
     }
 
@@ -69,7 +73,6 @@ public class OrderPanel extends javax.swing.JPanel {
         tablepanel = new javax.swing.JPanel();
 
         headerlabel.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
-        headerlabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         headerlabel.setText("Order");
 
         javax.swing.GroupLayout headrpanelLayout = new javax.swing.GroupLayout(headrpanel);
@@ -408,7 +411,16 @@ public class OrderPanel extends javax.swing.JPanel {
     }
 
     private void placeOrder() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        try {
+            OrderDTO orderDTO = new OrderDTO(txtOrderID.getText(), txtCustomerID.getText(), orderDetails);
+            String result = orderController.placeOrder(orderDTO);
+            
+            System.out.println(orderDTO.toString());
+            clearItems();
+            JOptionPane.showMessageDialog(this, result);
+        } catch (Exception ex) {
+            Logger.getLogger(OrderPanel.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     private void loadTable() {
